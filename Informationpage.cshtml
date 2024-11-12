@@ -1,0 +1,1080 @@
+﻿@model Epermit.Models.PermitDetails
+
+@{
+    ViewBag.Title = "Informationpage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.0/dist/sweetalert2.min.css">
+<!-- Bootstrap CSS (optional for button styling) -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<div class="form-container">
+    <h2>E-Permit Issue Form</h2>
+    <form>  
+        <div class="fields">
+            <div class="input-field">
+                <label>Issued By Department:</label>
+                <input type="text" placeholder="Department Name" required value="@Model.IssuedByDeparment" disabled>
+            </div>
+            <div class="input-field">
+                <label>Issued By Area:</label>
+                <input type="text" placeholder="Department Name" required value="@Model.IssuedByArea" disabled>
+            </div>
+            <div class="input-field">
+                <label>Issued To Department:</label>
+                <input type="text" placeholder="Department Name" required value="@Model.IssuedToDeparment" disabled>
+               
+            </div>
+            <div class="input-field">
+                <label>Issued To Area:</label>
+                <input type="text" placeholder="Department Name" required value="@Model.IssuedToArea" disabled>
+            </div>
+
+            <div class="input-field">
+                <label>Permit Request Date:</label>
+                <input type="text" placeholder="Department Name" required value="@Model.PermitIssueDate" disabled>
+            </div>
+            <div class="input-field">
+                <label>Select Shift:</label>
+                <input type="text" placeholder="Department Name" required value="@Model.PermitShift" disabled>
+            </div>
+            <div class="input-field">
+                <label>Location of Work:</label>
+                <input type="text" placeholder="Work Location" required value="@Model.LocationOfWork" disabled>
+            </div>
+            <div class="input-field">
+                <label>Job Description:</label>
+                <input type="text" placeholder="Job Description" required value="@Model.JobDescription" disabled>
+            </div>
+
+            @*<div class="input-field">
+                <label for="gas-test-required" class="checkbox-label">Is Gas Test Required?</label>
+                <input type="checkbox" id="gas-test-required">
+                <label for="permit-received-by-individual" class="checkbox-label">Is permit to be received by Individual?</label>
+                <input type="checkbox" id="permit-received-by-individual">
+
+            </div>*@
+
+
+        </div>
+
+    </form>
+</div>
+
+<div class="sap-container">
+    <h2>SAP</h2>
+    <form>
+        <div class="sa<p-fields">
+            <div class="sap-input-field">
+                <div class="sap-radio-group">
+                   @* <input type="radio" id="With_SAP_notification" name="sap" value="With SAP notification">
+                    <label for="With_SAP_notification">With SAP notification</label>
+                    <input type="radio" id="With_SAP_PMO_Notification" name="sap" value="With SAP PMO Notification">
+                    <label for="With_SAP_PMO_Notification">With SAP PMO Notification</label>
+                    <input type="radio" id="With_SAP_PM_sub_order" name="sap" value="With SAP PM sub order">
+                    <label for="With_SAP_PM_sub_order">With SAP PM sub order</label>*@
+                    <input type="radio" id="Without_SAP_notification" name="sap" value="Without SAP notification">
+                    <label for="Without_SAP_notification">Without SAP notification</label>
+                </div>
+            </div>
+            <br>
+            <div class="sap-input-field">
+                <label>Reason for without SAP notification:</label>
+                <textarea id="comments" name="comments" rows="4" cols="50" placeholder="Enter your comments here..." disabled>@Model.ReasonForWithoutSAPnotification</textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="work-order-container">
+    <h2>Work Order</h2>
+    <form>
+        <div class="work-order-fields">
+            <div class="work-order-input-field">
+                <div class="work-order-radio-group">
+                    @*<input type="radio" id="WWON" name="work-order" value="With Work Order Number">
+                    <label for="WWON">With Work Order Number</label>*@
+                    <input type="radio" id="WION" name="work-order" value="Without Work Order Number">
+                    <label for="WION">Without Work Order Number</label>
+
+                </div>
+            </div>
+            <br>
+            <div class="work-order-input-field">
+                <label>Reason for without Work Order Number</label>
+                <textarea id="comments" name="comments" rows="4" cols="50" placeholder="Enter your comments here..." disabled>@Model.ReasonForWithoutSAPnotification</textarea>
+            </div>
+
+
+
+        </div>
+    </form>
+</div>
+
+<div class="permit_form">
+    <div class="dropdown">
+        <h2 onclick="toggleDropdown('cold-permit')">Cold Permit <i class='bx bx-chevron-down'></i></h2>
+        <div id="cold-permit" class="dropdown-content">
+            <form class="form_cold_permit" id="coldPermitForm">
+                <h1 class="h1_Cold_permit">Issue Cold Permit</h1>
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit"> Equipment Work Area Inspected</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done1" name="Cold_permit1" value="HTML">
+                        <label class="label_cold_permit" for="html_done1">Done</label>
+                        <input type="radio" id="css_not_required1" name="Cold_permit1" value="CSS" checked>
+                        <label class="label_cold_permit" for="css_not_required1">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit">Surrounding Area</p>
+                        <input type="checkbox" id="Cold_permit_checked2" name="Cold_permit2" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_checked2">Checked</label>
+                        <input type="checkbox" id="Cold_permit_covered2" name="Cold_permit2" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_covered2">Covered</label>
+                        <input type="checkbox" id="Cold_permit_cleaned2" name="Cold_permit2" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_cleaned2">Cleaned</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done2" name="Cold_permit_status2" value="Done" onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="html_done2">Done</label>
+                        <input type="radio" id="css_not_required2" name="Cold_permit_status2" value="Not Required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="css_not_required2">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit"> Equipment Electrically Isolated and Tagged Vide</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done3" name="Cold_permit3" value="HTML">
+                        <label class="label_cold_permit" for="html_done3">Done</label>
+                        <input type="radio" id="css_not_required3" name="Cold_permit3" value="CSS" checked>
+                        <label class="label_cold_permit" for="css_not_required3">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit">Running Water</p>
+                        <input type="checkbox" id="Cold_permit_checked4" name="Cold_permit4" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_checked4">Checked</label>
+                        <input type="checkbox" id="Cold_permit_covered4" name="Cold_permit4" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_covered4">Covered</label>
+                        <input type="checkbox" id="Cold_permit_cleaned4" name="Cold_permit4" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_cleaned4">Cleaned</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done4" name="Cold_permit4" value="HTML" onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="html_done4">Done</label>
+                        <input type="radio" id="css_not_required4" name="Cold_permit4" value="CSS" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="css_not_required4">Not Required</label>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit"> Equipment</p>
+                        <input type="checkbox" id="Cold_permit_checked5" name="Cold_permit5" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_checked5">Blinded</label>
+                        <input type="checkbox" id="Cold_permit_covered5" name="Cold_permit5" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_covered5">Closed</label>
+                        <input type="checkbox" id="Cold_permit_cleaned5" name="Cold_permit5" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_cleaned5">Disconnected</label>
+                        <input type="checkbox" id="Cold_permit_isolated5" name="Cold_permit5" value="isolated" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_isolated5">Isolated</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done5" name="Cold_permit5" value="HTML" onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="html_done5">Done</label>
+                        <input type="radio" id="css_not_required5" name="Cold_permit5" value="CSS" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="css_not_required5">Not Required</label>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit"> Equipment Properly</p>
+                        <input type="checkbox" id="Cold_permit_drained6" name="Cold_permit6" value="drained" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_drained6">Drained</label>
+                        <input type="checkbox" id="Cold_permit_depressurised6" name="Cold_permit6" value="depressurised" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_depressurised6">Depressurised</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done6" name="Cold_permit6" value="HTML" onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="html_done6">Done</label>
+                        <input type="radio" id="css_not_required6" name="Cold_permit6" value="CSS" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="css_not_required6">Not Required</label>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit"> Equipment Water Flushed</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done7" name="Cold_permit7" value="HTML">
+                        <label class="label_cold_permit" for="html_done7">Done</label>
+                        <input type="radio" id="css_not_required7" name="Cold_permit7" value="CSS" checked>
+                        <label class="label_cold_permit" for="css_not_required7">Not Required</label>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit">Iron Sulphide Removed/kept wet</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done8" name="Cold_permit8" value="HTML">
+                        <label class="label_cold_permit" for="html_done8">Done</label>
+                        <input type="radio" id="css_not_required8" name="Cold_permit8" value="CSS" checked>
+                        <label class="label_cold_permit" for="css_not_required8">Not Required</label>
+                    </div>
+                </div>
+
+                <br>
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit"> Equipment Properly Steamed/Purged</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done9" name="Cold_permit9" value="HTML">
+                        <label class="label_cold_permit" for="html_done9">Done</label>
+                        <input type="radio" id="css_not_required9" name="Cold_permit9" value="CSS" checked>
+                        <label class="label_cold_permit" for="css_not_required9">Not Required</label>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit">Gas Test</p>
+                        <input type="checkbox" id="Cold_permit_HC10" name="Cold_permit10" value="HC" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_HC10">HC</label>
+                        <input type="checkbox" id="Cold_permit_CO10" name="Cold_permit10" value="CO" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_CO10">CO</label>
+                        <input type="checkbox" id="Cold_permit_Other10" name="Cold_permit10" value="Other" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_Other10">O2</label>
+                        <input type="checkbox" id="Cold_permit_Other10" name="Cold_permit10" value="Other" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_Other10">SO2</label>
+                        <input type="checkbox" id="Cold_permit_Other10" name="Cold_permit10" value="Other" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_Other10">H2S</label>
+                        <input type="checkbox" id="Cold_permit_Other10" name="Cold_permit10" value="Other" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_Other10">Other if Any</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done10" name="Cold_permit10" value="Done" onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="html_done10">Done</label>
+                        <input type="radio" id="css_not_required10" name="Cold_permit10" value="Not Required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="css_not_required10">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit">StandBy Personal Provided for Fire Watch from</p>
+                        <input type="checkbox" id="Cold_permit_checked11" name="Cold_permit11" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_checked11">Process</label>
+                        <input type="checkbox" id="Cold_permit_covered11" name="Cold_permit11" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_cold_permit" for="Cold_permit_covered11">Maintenance</label>
+                        <input type="checkbox" id="Cold_permit_covered11" name="Cold_permit11" value="covered" onclick="toggleRadioButtons(this) ">
+                        <label class="label_cold_permit" for="Cold_permit_covered11">Fire & Safety</label>
+                    </div>
+
+                    <div class="right-content">
+                        <input type="radio" id="html_done11" name="Cold_permit11" value="HTML" onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="html_done11">Done</label>
+                        <input type="radio" id="css_not_required11" name="Cold_permit11" value="CSS" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="css_not_required11">Not Required</label>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit">Proper Ventilation and Lighting Provided</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done" name="Cold_permit12" value="Done">
+                        <label class="label_cold_permit" for="html_done">Done</label>
+                        <input type="radio" id="css_not_required12" name="Cold_permit12" value="Not Required" checked>
+                        <label class="label_cold_permit" for="css_not_required12">Not Required</label>
+                    </div>
+                </div>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit">Area Cordoned off (Minimum 15m) in case of Radiography</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done" name="Cold_permit13" value="Done">
+                        <label class="label_cold_permit" for="html_done">Done</label>
+                        <input type="radio" id="css_not_required13" name="Cold_permit13" value="Not Required" checked>
+                        <label class="label_cold_permit" for="css_not_required13">Not Required</label>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_cold_permit">Following Personal Protective Equipment (PPE) are used:</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done15" name="Cold_permit15" value="Done" onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="html_done15">Done</label>
+                        <input type="radio" id="css_not_required15" name="Cold_permit15" value="Not Required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="css_not_required15">Not Required</label>
+                    </div>
+                </div>
+
+                <div class="confirm-table">
+                    <table class="table_cold_permit" style="border:none;">
+                        <tr>
+                            <td class="td_cold_permit">
+                                <input type="checkbox" id="safety_helmet15" name="Cold_permit15" value="Safety Helmet" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="safety_helmet15">Safety Helmet</label>
+                            </td>
+                            <td class="td_cold_permit">
+                                <input type="checkbox" id="safety_shoes15" name="Cold_permit15" value="Safety Shoes" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="safety_shoes15">Safety Shoes</label>
+                            </td>
+                            <td class="td_cold_permit" style="padding-right:300px;">
+                                <input type="checkbox" id="gloves15" name="Cold_permit15" value="Gloves" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="gloves15">Gloves</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_cold_permit">
+                                <input type="checkbox" id="goggles15" name="Cold_permit15" value="Goggles" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="goggles15">Goggles</label>
+                            </td>
+                            <td class="td_cold_permit">
+                                <input type="checkbox" id="fresh_air_mask15" name="Cold_permit15" value="Fresh Air Mask" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="fresh_air_mask15">Fresh Air Mask</label>
+                            </td>
+                            <td class="td_cold_permit">
+                                <input type="checkbox" id="canister_mask15" name="Cold_permit15" value="Canister Mask" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="canister_mask15">Canister Mask</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_cold_permit">
+                                <input type="checkbox" id="lifeline15" name="Cold_permit15" value="Lifeline" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="lifeline15">Lifeline</label>
+                            </td>
+                            <td class="td_cold_permit">
+                                <input type="checkbox" id="apron15" name="Cold_permit15" value="Apron" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="apron15">Apron</label>
+                            </td>
+                            <td class="td_cold_permit" style="padding-right:300px;">
+                                <input type="checkbox" id="dust_respirator15" name="Cold_permit15" value="Dust Respirator" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="dust_respirator15">Dust Respirator</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_cold_permit">
+                                <input type="checkbox" id="dosimeter15" name="Cold_permit15" value="Dosimeter" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="dosimeter15">Dosimeter</label>
+                            </td>
+                            <td class="td_cold_permit">
+                                <input type="checkbox" id="boiler_suit15" name="Cold_permit15" value="Boiler Suit" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="boiler_suit15">Boiler Suit</label>
+                            </td>
+                            <td class="td_cold_permit">
+                                <input type="checkbox" id="film_badges15" name="Cold_permit15" value="Film Badges" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="film_badges15">Film Badges</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_cold_permit">
+                                <input type="checkbox" id="ear_plug15" name="Cold_permit15" value="Ear Plug" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="ear_plug15">Ear Plug</label>
+                            </td>
+                            <td class="td_cold_permit">
+                                <input type="checkbox" id="airline15" name="Cold_permit15" value="Airline" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="airline15">Airline</label>
+                            </td>
+                            <td class="td_cold_permit">
+                                <input type="checkbox" id="breathing_apparatus15" name="Cold_permit15" value="Breathing Apparatus" onclick="toggleRadioButtons(this)">
+                                <label class="label_cold_permit" for="breathing_apparatus15">Breathing Apparatus</label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br><br>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <h2 onclick="toggleDropdown('hot-permit')">Hot Permit <i class='bx bx-chevron-down'></i></h2>
+        <div id="hot-permit" class="dropdown-content">
+            <form class="form_hot_permit" id="hotPermitForm">
+                <h1 class="h1_hot_permit">Issue Hot Permit</h1>
+                <div class="flex-container">
+                    <div class="left-container">
+                        <p class="p_hot_permit">Checking of</p>
+                        <input type="checkbox" id="Hot_permit_checked1" name="Hot_permit1" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked1">Equipment</label>
+                        <input type="checkbox" id="Hot_permit_covered1" name="Hot_permit1" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered1">Work Area</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done1" name="Hot_permit_status1" value="Done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done1">Done</label>
+                        <input type="radio" id="css_not_required1" name="Hot_permit_status1" value="Not Required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required1">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Surrounding Area</p>
+                        <input type="checkbox" id="Hot_permit_checked2" name="Hot_permit2" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked2">Checked</label>
+                        <input type="checkbox" id="Hot_permit_covered2" name="Hot_permit2" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered2">Rags</label>
+                        <input type="checkbox" id="Hot_permit_cleaned2" name="Hot_permit2" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned2">Cleaned Up of Oil</label>
+                        <input type="checkbox" id="Hot_permit_cleaned2" name="Hot_permit2" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned3">Grass etc Remove</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done2" name="Hot_permit_status_surrounding_area" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done2">Done</label>
+                        <input type="radio" id="css_not_required2" name="Hot_permit_status_surrounding_area" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required2">Not Required</label>
+                    </div>
+                </div>
+                <br>
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Sewers, Manholes, CBD etc and HOT Surface Nearby Covered</p>
+                        <input type="checkbox" id="Hot_permit_checked_sewer3" name="Hot_permit3" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked_sewer3">Checked</label>
+                        <input type="checkbox" id="Hot_permit_covered_sewer3" name="Hot_permit3" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered_sewer3">Covered</label>
+                        <input type="checkbox" id="Hot_permit_cleaned_sewer3" name="Hot_permit3" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned_sewer3">Cleaned Up</label>
+                        <input type="checkbox" id="Hot_permit_removed_sewer3" name="Hot_permit3" value="removed" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_removed_sewer3">Removed Debris</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done3" name="Hot_permit_status_sewer" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done3">Done</label>
+                        <input type="radio" id="css_not_required3" name="Hot_permit_status_sewer" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required3">Not Required</label>
+                    </div>
+                </div>
+                <br>
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Consider Hazard From</p>
+                        <input type="checkbox" id="Hot_permit_checked_hazard4" name="Hot_permit_hazard4" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked_hazard4">Other Routine</label>
+                        <input type="checkbox" id="Hot_permit_covered_hazard4" name="Hot_permit_hazard4" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered_hazard4">Non Routine Operations & Concerned Person Alerted</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done4" name="Hot_permit_status_hazard" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done4">Done</label>
+                        <input type="radio" id="css_not_required4" name="Hot_permit_status_hazard" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required4">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Equipment Electrically Isolated and tagged vide</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done5" name="Hot_permit_status_equipment" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done5">Done</label>
+                        <input type="radio" id="css_not_required5" name="Hot_permit_status_equipment" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required5">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Fire water hose/Portable Extinguishers Provided</p>
+                        <input type="checkbox" id="Hot_permit_checked6" name="Hot_permit6" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked6">CO2</label>
+                        <input type="checkbox" id="Hot_permit_covered6" name="Hot_permit6" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered6">DCP</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done6" name="Hot_permit_status_fire_equipment" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done6">Done</label>
+                        <input type="radio" id="css_not_required6" name="Hot_permit_status_fire_equipment" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required6">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Equipment Properly Drained/Depressurised</p>
+                        <input type="checkbox" id="Hot_permit_checked7" name="Hot_permit7" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked7">Checked</label>
+                        <input type="checkbox" id="Hot_permit_covered7" name="Hot_permit7" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered7">Covered</label>
+                        <input type="checkbox" id="Hot_permit_cleaned7" name="Hot_permit7" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned7">Cleaned Up</label>
+                        <input type="checkbox" id="Hot_permit_removed7" name="Hot_permit7" value="removed" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_removed7">Removed Debris</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done7" name="Equipment_drained" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done7">Done</label>
+                        <input type="radio" id="css_not_required7" name="Equipment_drained" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required7">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Checked for Oil/Gas Trapped Behind Lining in Equipment</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done8" name="Hot_permit" value="HTML">
+                        <label class="label_hot_permit" for="html_done8">Done</label>
+                        <input type="radio" id="css" name="Hot_permit_Checked_for_oil_Gas" value="CSS" checked>
+                        <label class="label_hot_permit" for="css">Not Required</label>
+                    </div>
+                </div>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Welding Machine Checked for</p>
+                        <input type="checkbox" id="Hot_permit_checked9" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked9">Earthing</label>
+                        <input type="checkbox" id="Hot_permit_covered9" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered9">Being Welded</label>
+                        <input type="checkbox" id="Hot_permit_cleaned9" name="Hot_permit" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned9">Return Connection to Equipment</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done9" name="cold_permit_welding_machine" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done9">Done</label>
+                        <input type="radio" id="css_not_required9" name="cold_permit_welding_machine" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required9">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Equipment Properly Steamed/Purged</p>
+                        <input type="checkbox" id="Hot_permit_checked10" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked10">Checked</label>
+                        <input type="checkbox" id="Hot_permit_covered10" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered10">Covered</label>
+                        <input type="checkbox" id="Hot_permit_cleaned10" name="Hot_permit" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned10">Cleaned Up</label>
+                        <input type="checkbox" id="Hot_permit_removed10" name="Hot_permit" value="removed" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_removed10">Removed Debris</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done10" name="Hot_permit_steam" value="done">
+                        <label class="label_hot_permit" for="html_done10">Done</label>
+                        <input type="radio" id="css_not_required10" name="Hot_permit_steam" value="not_required" checked>
+                        <label class="label_hot_permit" for="css_not_required10">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Shelid Against Sparks Provided</p>
+                        <input type="checkbox" id="Hot_permit_checked11" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked11">Checked</label>
+                        <input type="checkbox" id="Hot_permit_covered11" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered11">Covered</label>
+                        <input type="checkbox" id="Hot_permit_cleaned11" name="Hot_permit" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned11">Cleaned Up</label>
+                        <input type="checkbox" id="Hot_permit_removed11" name="Hot_permit" value="removed" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_removed11">Removed Debris</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done11" name="Hot_permit_shield_spark" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done11">Done</label>
+                        <input type="radio" id="css_not_required11" name="Hot_permit_shield_spark" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required11">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Proper Means of Exit Provided</p>
+                        <input type="checkbox" id="Hot_permit_checked12" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked12">Checked</label>
+                        <input type="checkbox" id="Hot_permit_covered12" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered12">Covered</label>
+                        <input type="checkbox" id="Hot_permit_cleaned12" name="Hot_permit" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned12">Cleaned Up</label>
+                        <input type="checkbox" id="Hot_permit_removed12" name="Hot_permit" value="removed" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_removed12">Removed Debris</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done12" name="Hot_permit_proper" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done12">Done</label>
+                        <input type="radio" id="css_not_required12" name="Hot_permit_proper" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required12">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Iron Sulphide Removed/kept wet</p>
+                        <input type="checkbox" id="Hot_permit_checked13" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked13">Checked</label>
+                        <input type="checkbox" id="Hot_permit_covered13" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered13">Covered</label>
+                        <input type="checkbox" id="Hot_permit_cleaned13" name="Hot_permit" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned13">Cleaned Up</label>
+                        <input type="checkbox" id="Hot_permit_removed13" name="Hot_permit" value="removed" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_removed13">Removed Debris</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done13" name="Hot_permit_Iron_Sulphide" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done13">Done</label>
+                        <input type="radio" id="css_not_required13" name="Hot_permit_Iron_Sulphide" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required13">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Gas Test</p>
+                        <input type="checkbox" id="Hot_permit_Gas_HC_14" name="Hot_permit" value="HC" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_Gas_HC_14">HC</label>
+                        <input type="checkbox" id="Hot_permit_Gas_CO_14" name="Hot_permit" value="CO" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_Gas_CO_14">CO</label>
+                        <input type="checkbox" id="Hot_permit_Gas_O_14" name="Hot_permit" value="O2" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_Gas_O_14">O2</label>
+                        <input type="checkbox" id="Hot_permit_Gas_SO_14" name="Hot_permit" value="SO2" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_Gas_SO_14">SO2</label>
+                        <input type="checkbox" id="Hot_permit_Gas_HS_14" name="Hot_permit" value="H2S" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_Gas_HS_14">H2S</label>
+                        <input type="checkbox" id="Hot_permit_Gas_other_14" name="Hot_permit" value="Other" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_Gas_other_14">Other if Any</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done14" name="Gas_test_status" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="htmldone14">Done</label>
+                        <input type="radio" id="css_not_required14" name="Gas_test_status" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required14">Not Required</label>
+                    </div>
+                </div>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Clearence Obtained for dyke wall cutting</p>
+                        <input class="label_hot_permit" type="checkbox" id="Hot_permit_checked15" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                        <label for="Hot_permit_checked15">Checked</label>
+                        <input type="checkbox" id="Hot_permit_covered15" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered15">Covered</label>
+                        <input type="checkbox" id="Hot_permit_cleaned15" name="Hot_permit" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned15">Cleaned Up</label>
+                        <input type="checkbox" id="Hot_permit_removed15" name="Hot_permit" value="removed" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_removed15">Removed Debris</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done15" name="Hot_permit_Clear" value="done" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done15">Done</label>
+                        <input type="radio" id="css_not_required15" name="Hot_permit_Clear" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required15">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Proper tags/boards provided</p>
+                        <input type="checkbox" id="Hot_permit_checked16" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked16">Checked</label>
+                        <input type="checkbox" id=" Hot_permit_covered16" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered16">Covered</label>
+                        <input type="checkbox" id="Hot_permit_cleaned16" name="Hot_permit" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned16">Cleaned Up</label>
+                        <input type="checkbox" id="Hot_permit_removed16" name="Hot_permit" value="removed" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_removed16">Removed Debris</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done16" name="Hot_permit_Proper_tags" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done">Done</label>
+                        <input type="radio" id="css_not_required16" name="Hot_permit_Proper_tags" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required16">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Equipment Water Flushed</p>
+                        <input type="checkbox" id="Hot_permit_checked17" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked17">Checked</label>
+                        <input type="checkbox" id="Hot_permit_covered17" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered17">Covered</label>
+                        <input type="checkbox" id="Hot_permit_cleaned17" name="Hot_permit" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned17">Cleaned Up</label>
+                        <input type="checkbox" id="Hot_permit_removed17" name="Hot_permit" value="removed" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_removed17">Removed Debris</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done17" name="Hot_permit_Water_flush" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done17">Done</label>
+                        <input type="radio" id="css_not_required17" name="Hot_permit_Water_flush" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required17">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">StandBy Personnel Provided to Fire Watch from</p>
+
+                        <input type="checkbox" id="Hot_permit_Standby18" name="StandBy_permit_process" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_Standby18">Process</label>
+
+                        <input type="checkbox" id="Hot_permit_maintenance18" name="StandBy_permit_maintenance" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_maintenance18">Maintenance</label>
+
+                        <input type="checkbox" id="Hot_permit_contractor18" name="StandBy_permit_contractor" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_contractor18">Contractor</label>
+
+                        <input type="checkbox" id="Hot_permit_fire_safety18" name="StandBy_permit_fire_safety" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_fire_safety18">Fire & Safety</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done18" name="Hot_permit_Standby" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done18">Done</label>
+
+                        <input type="radio" id="css_not_required18" name="Hot_permit_Standby" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required18">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Portable Equipment/nozzels properly Grounded</p>
+                        <input type="checkbox" id="Hot_permit_checked19" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked19">Checked</label>
+                        <input type="checkbox" id="Hot_permit_covered19" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered19">Covered</label>
+                        <input type="checkbox" id="Hot_permit_cleaned19" name="Hot_permit" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned19">Cleaned Up</label>
+                        <input type="checkbox" id="Hot_permit_removed19" name="Hot_permit" value="removed" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_removed19">Removed Debris</label>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done19" name="Hot_permit_portable_equipment" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done19">Done</label>
+                        <input type="radio" id="css_not_required19" name="Hot_permit_portable_equipment" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required19">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Standby Personal Provided for Vessel Entry</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done20" name="Vessel_entry_status" value="done">
+                        <label class="label_hot_permit" for="html_done20">Done</label>
+                        <input type="radio" id="css_not_required20" name="Vessel_entry_status" value="not_required" checked>
+                        <label class="label_hot_permit" for="css_not_required20">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Clearence Obtained For Road Cutting from Tech/Fire/Concerned Department</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done21" name="Road_cutting_status" value="done">
+                        <label class="label_hot_permit" for="html_done21">Done</label>
+                        <input type="radio" id="css_road_cutting_not_required" name="Road_cutting_status" value="not_required" checked>
+                        <label class="label_hot_permit" for="css_road_cutting_not_required">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Incase Of Excavation, Clearence Shall be Obtained from Area Civil & Excavation</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done22" name="Excavation_status" value="done">
+                        <label class="label_hot_permit" for="html_done22">Done</label>
+                        <input type="radio" id="css_not_required23" name="Excavation_status" value="not_required" checked>
+                        <label class="label_hot_permit" for="css_not_required23">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Equipment</p>
+                        <input type="checkbox" id="Hot_permit_checked_equipment24" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_checked_equipment24">Checked</label>
+                        <input type="checkbox" id="Hot_permit_covered_equipment24" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_covered_equipment24">Covered</label>
+                        <input type="checkbox" id="Hot_permit_cleaned_equipment24" name="Hot_permit" value="cleaned" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_cleaned_equipment24">Cleaned Up</label>
+                        <input type="checkbox" id="Hot_permit_removed_equipment24" name="Hot_permit" value="removed" onclick="toggleRadioButtons(this)">
+                        <label class="label_hot_permit" for="Hot_permit_removed_equipment24">Removed Debris</label>
+                    </div>
+
+                    <div class="right-content">
+                        <input type="radio" id="html_done24" name="Hot_permit_status_equip" value="done" onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="html_done24">Done</label>
+                        <input type="radio" id="css_not_required24" name="Hot_permit_status_equip" value="not_required" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_hot_permit" for="css_not_required24">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Precaution Against Public Traffic Taken</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done24" name="Cold_permit_public" value="done">
+                        <label class="label_hot_permit" for="html_done24">Done</label>
+                        <input type="radio" id="css_excavation_not_required" name="Cold_permit_public" value="not_required" checked>
+                        <label class="label_hot_permit" for="css_excavation_not_required">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Proper Ventilation and Lighting Provided(24 Volts)</p>
+                    </div>
+
+                    <div class="right-content">
+                        <input type="radio" id="html_done25" name="Cold_permit_ventilation" value="HTML">
+                        <label class="label_hot_permit" for="html_done25">Done</label>
+                        <input type="radio" id="css" name="Cold_permit_ventilation" value="CSS" checked>
+                        <label class="label_hot_permit" for="css">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Precautionary tags/boards Provided<p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done26" name="Cold_permit_precaution" value="HTML">
+                        <label class="label_hot_permit" for="html_done26">Done</label>
+                        <input type="radio" id="css" name="Cold_permit_precaution" value="CSS" checked>
+                        <label class="label_hot_permit" for="css">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Area Cordoned Off<p>
+                    </div>
+
+                    <div class="right-content">
+
+                        <input type="radio" id="html_done27" name="Cold_permit_area_cordoned" value="HTML">
+                        <label class="label_hot_permit" for="html_done27">Done</label>
+                        <input type="radio" id="css" name="Cold_permit_area_cordoned" value="CSS" checked>
+                        <label class="label_hot_permit" for="css">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Clearence for Excavation from Electrical/Concerned Department<p>
+                    </div>
+                    <div class="right-content">
+
+                        <input type="radio" id="html_done28" name="Cold_permit_Clearence" value="HTML">
+                        <label class="label_hot_permit" for="html_done28">Done</label>
+                        <input type="radio" id="css" name="Cold_permit_Clearence" value="CSS" checked>
+                        <label class="label_hot_permit" for="css">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Cheacked Flame/Spark Arrestor in Mobile Equipment<p>
+                    </div>
+                    <div class="right-content">
+
+                        <input type="radio" id="html_done29" name="Cold_permit_Arrestor" value="HTML">
+                        <label class="label_hot_permit" for="html_done29">Done</label>
+                        <input type="radio" id="css" name="Cold_permit_Arrestor" value="CSS" checked>
+                        <label class="label_hot_permit" for="css">Not Required</label>
+                    </div>
+                </div>
+                <br>
+
+                <div class="flex-container">
+                    <div class="left-content">
+                        <p class="p_hot_permit">Following Personal Protective Equipment's(PPE) are used</p>
+                    </div>
+                    <div class="right-content">
+                        <input type="radio" id="html_done30" name="Hot_permit30" value="HTML" onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="html_done30">Done</label>
+                        <input type="radio" id="css_not_required30" name="Hot_permit30" value="CSS" checked onclick="toggleCheckboxes(this)">
+                        <label class="label_cold_permit" for="css_not_required30">Not Required</label>
+                    </div>
+                </div>
+
+                <div class="confirm-table">
+                    <table class="table_hot_permit" style="border: none;">
+                        <tr>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_checked30" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_checked30">Safety Helmet</label>
+                            </td>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_covered30" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_covered30">Safety Shoes</label>
+                            </td>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_checked_again30" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_checked_again30">Gloves</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_covered_a30" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit">Goggles</label>
+                            </td>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_checked_a30" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit">Fresh Air Mask</label>
+                            </td>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_covered_a30" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_covered_a30">Canister Mask</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_checked_aa30" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_checked_aa30">Lifeline</label>
+                            </td>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_covered_aa30" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_covered_aa30">Apron</label>
+                            </td>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_check_aa30" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_check_aa30">Dust Respiration</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_covered_aaa30" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_covered_aaa30">Dosimeter</label>
+                            </td>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_checked_aaa30" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_checked_aaa30">Boiler Suit</label>
+                            </td>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_cover_aaa30" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_cover_aaa30">Flim Badges</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_checked_aaaa30" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_checked_aaaa30">Ear plug</label>
+                            </td>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_covered_aaaa30" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_covered_aaaa30">Airline</label>
+                            </td>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_check_aaaa30" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_check_aaaa30">Breathing Apparatus</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_checked_aaaaa30" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_checked_aaaaa30">Safety Belt</label>
+                            </td>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_covered_aaaaa30" name="Hot_permit" value="covered" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_covered_aaaaa30">Welding Suit</label>
+                            </td>
+                            <td class="td_hot_permit">
+                                <input type="checkbox" id="Hot_permit_check_aaaaa30" name="Hot_permit" value="checked" onclick="toggleRadioButtons(this)">
+                                <label class="label_hot_permit" for="Hot_permit_check_aaaaa30">Face Shield</label>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <br><br>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleDropdown(id) {
+        var content = document.getElementById(id);
+        var arrow = content.previousElementSibling.querySelector('.bx');
+
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+            arrow.style.transform = "rotate(180deg)";
+        } else {
+            content.style.display = "none";
+            arrow.style.transform = "rotate(0deg)";
+        }
+    }
+</script>

@@ -1,0 +1,157 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="~/Lib/loginpage.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-in">
+            <form>
+
+                <h1>Create Account</h1><br>
+
+                <span>Register with your personal details</span><br>
+
+                <input type="text" name="Name" id="Name" placeholder="Name">
+                <input type="number" name="Phone_no" id="Phone_no" placeholder="Phone Number">
+                <input type="password" name="Password" id="Password" placeholder="Password">
+                <input type="button" onclick="Registration()" value="Sign Up" class="signupbutton" />
+
+            </form>
+        </div>
+        <div class="form-container sign-up">
+            <form>
+                <h1>Sign In</h1>
+
+                <span>use your username and password</span>
+                <input type="number" name="Phone_no2" id="Phone_no2" placeholder="Phone Number">
+                <input type="password" name="Password2" id="Password2" placeholder="Password">
+                <a href="#">Forget Your Password?</a>
+                <input type="button" onclick="Login()" value="Sign In" class="signupbutton" />
+
+                <span class="text-danger" id="errorMessage"></span>
+
+               
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Hello User!</h1><br>
+                    <button class="hidden" id="login">Go Back to Sign Up</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <img src="~/Lib/nrl-og-logo.png" width="100">
+                    <h1>Welcome to Fire and Safety Department</h1>
+                    <p>Numaligarh Refinery Limited</p>
+                    <button class="hidden" id="register">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <script>
+        const container = document.getElementById('container');
+        const registerBtn = document.getElementById('register');
+        const loginBtn = document.getElementById('login');
+
+        registerBtn.addEventListener('click', () => {
+            container.classList.add("active");
+        });
+
+        loginBtn.addEventListener('click', () => {
+            container.classList.remove("active");
+        });
+
+        function redirect() {
+            location.href = 'Issuepage';
+        }
+
+
+        function Login() {
+
+            $("#errorMessage").text("");
+
+            var user = {};
+            user.Phone_no = $("#Phone_no2").val();
+            user.Password = $("#Password2").val();
+
+
+            $.ajax({
+                type: "POST",
+                url: "LoginUser",
+                data: { user: user },
+                cache: false,
+                success: function (data) {
+
+
+                    if (data.status == "success") {
+
+                        location.href = 'Issuepage';
+
+                    }
+                    else {
+
+                        $("#errorMessage").text(data.message);
+                    }
+
+                },
+                error: function (a, b, c) {
+                    location.href = 'Loginpage';
+
+                }
+            });
+
+        }
+
+        function Registration() {
+
+            var user = {};
+            user.Phone_no = $("#Phone_no").val();
+            user.Password = $("#Password").val();
+            user.Name = $("#Name").val();
+
+
+            $.ajax({
+                type: "POST",
+                url: "Registration",
+                data: { user: user },
+                cache: false,
+                success: function (data) {
+
+                    debugger;
+                    location.href = 'Issuepage'; // Redirect to gpt.html after showing the success message
+
+                },
+                error: function (a, b, c) {
+
+                    debugger;
+                    location.href = 'Loginpage'; // Redirect to gpt.html after showing the success message
+
+                }
+            });
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>
+

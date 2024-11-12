@@ -1,0 +1,182 @@
+﻿
+<!DOCTYPE html>
+<!-- Coding by CodingLab | www.codinglabweb.com -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    <!----===== Boxicons CSS ===== -->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+    <!--<title>Dashboard Sidebar Menu</title>-->
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+
+
+    <!----======== CSS ======== -->
+    <link href="~/Lib/gpt.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+
+</head>
+<body>
+
+    <nav class="sidebar close1">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="~/Lib/nrl-og-logo.png" alt="">
+                </span>
+
+                <div class="text logo-text">
+                    <span class="name">Fire and Safety <br> Department</span>
+                </div>
+            </div>
+
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar-2" style="margin-left:-30px">
+            <div class="menu-2">
+                <ul>
+                    <li class="search-box">
+                        <i class='bx bx-search icon'></i>
+                        <input type="text" placeholder="Search...">
+                    </li>
+                </ul>
+                <ul >
+                    <li class="nav-link-2">
+                        <a href="~/Home/Issuepage" runat="server">
+                            <i class='bx bx-notepad icon'></i>
+                            <span class="text nav-text">Issue Permit</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link-2">
+                        <a href="~/Home/Showallpermit">
+                            <i class='bx bxs-key icon'></i>
+                            <span class="text nav-text">Show all Permit</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link-2">
+                        <a href="~/Home/Recievepage">
+                            <i class='bx bx-list-check icon'></i>
+                            <span class="text nav-text">Recieve</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <ul>
+                    <li class="">
+                        <a href="#">
+                            <i class='bx bx-log-out icon' onclick="loggingout();"></i>
+                            <span class="text nav-text" onclick="loggingout();">Logout</span>
+                        </a>
+                    </li>
+
+                    <li class="mode">
+                        <div class="sun-moon">
+                            <i class='bx bx-moon icon moon'></i>
+                            <i class='bx bx-sun icon sun'></i>
+                        </div>
+                        <span class="mode-text text">Dark mode</span>
+
+                        <div class="toggle-switch">
+                            <span class="switch"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="home">
+        <div class="top">
+            <div class="text"><b>E-Permit System</b></div>
+
+            <nav>
+                <div class="profile-photo">
+
+                    <img src="https://cdn.pixabay.com/photo/2024/02/05/02/53/cat-8553498_1280.jpg" alt="" onclick="toggleMenu()">
+                    <div class="sub-menu-wrap" id="subMenu">
+                        <div class="sub-menu">
+                            <div class="user-info">
+                                <img src="https://cdn.pixabay.com/photo/2024/02/05/02/53/cat-8553498_1280.jpg">
+                                <h2> User </h2>
+
+                            </div>
+                            <hr>
+                          
+                            <a href="Loginpage" class="sub-menu-link">
+                                <i class='bx bx-log-out-circle' style="font-size: 20px; color: black;"></i>
+                                <p> Log out</p>
+                                <span>></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+
+        @RenderBody()
+    </div>
+
+    <script>
+        const body = document.querySelector('body'),
+            sidebar = body.querySelector('nav'),
+            toggle = body.querySelector(".toggle"),
+            searchBtn = body.querySelector(".search-box"),
+            modeSwitch = body.querySelector(".toggle-switch"),
+            modeText = body.querySelector(".mode-text");
+
+
+        toggle.addEventListener("click", () => {
+            sidebar.classList.toggle("close1");
+        })
+
+        searchBtn.addEventListener("click", () => {
+            sidebar.classList.remove("close1");
+        })
+
+        modeSwitch.addEventListener("click", () => {
+            body.classList.toggle("dark");
+
+            if (body.classList.contains("dark")) {
+                modeText.innerText = "Light mode";
+            } else {
+                modeText.innerText = "Dark mode";
+
+            }
+        });
+
+        let subMenu = document.getElementById("subMenu");
+        function toggleMenu() {
+            subMenu.classList.toggle("open-menu");
+        }
+        function loggingout() {
+            location.href = 'Loginpage';
+               /* <a href="~/Views/Home/Loginpage.cshtml">~/Views/Home/Loginpage.cshtml</a>*/
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
